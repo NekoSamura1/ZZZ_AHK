@@ -1,7 +1,6 @@
-﻿
-key_Skip = Z
-key_Skip2 = C
-key_AFKatk = V
+key_Skip = \
+key_Skip2 = vkDD
+key_AFKatk = vkDB
 WindowFocus = ahk_class UnityWndClass
 
 #NoEnv
@@ -19,6 +18,9 @@ SetKeyDelay,-1, -1
 SetControlDelay, -1
 SetMouseDelay, -1
 SetWinDelay,-1
+
+#IfWinActive ahk_exe ZenlessZoneZero.exe
+
 CommandLine := DllCall("GetCommandLine", "Str")
 If !(A_IsAdmin || RegExMatch(CommandLine, " /restart(?!\S)")) 
 {
@@ -33,11 +35,11 @@ If !(A_IsAdmin || RegExMatch(CommandLine, " /restart(?!\S)"))
 }
 
 
-
-
+Hotkey, vk56, autoClicker, on ; автокликер блять на V
 Hotkey, *~$%key_Skip%, Label_Skip, on
 Hotkey, *~$%key_Skip2%, Label_Skip2, on
 Hotkey, *~$%key_AFKatk%, Label_AFKatk, on
+
 
 Menu,Tray,NoStandard
 Menu,Tray,DeleteAll
@@ -47,13 +49,15 @@ Menu,Tray, Default, Reload
 Menu,Tray, add
 Menu,Tray, add, Exit, MetkaMenu1
 Menu,Tray, Icon, Exit, shell32.dll,28, 16
-Menu,Tray, Icon, imageres.dll, 233
+Menu,Tray, Icon, imageres.dll, 80
 Return
 
-
+autoClicker:
+	SendInput {vk1}
+	Sleep 5
+	Return
 
 Label_AFKatk:
-Keywait %key_AFKatk%
 IfWinNotActive, %WindowFocus%
 	Return
 ToggleR1 := !ToggleR1
@@ -64,7 +68,7 @@ else
 ToolTip,,,0,2
 Return
 SpamKeys:
-	Tooltip, Afk Atk`nPres %key_AFKatk%,round(A_ScreenWidth * .5 - 50),0,2
+	Tooltip, Afk Atk`nPres %key_AtkFarm%,round(A_ScreenWidth * .5 - 50),0,2
     SendInput, {vk1}
 	Sleep 200
     SendInput, {vk20}
@@ -83,7 +87,6 @@ return
 
 
 Label_Skip:
-Keywait %key_Skip%
 IfWinNotActive, %WindowFocus%
 	Return
 ToggleR2 := !ToggleR2
@@ -126,7 +129,6 @@ return
 
 
 Label_Skip2:
-Keywait %key_Skip2%
 IfWinNotActive, %WindowFocus%
 	Return
 Sleep 50
